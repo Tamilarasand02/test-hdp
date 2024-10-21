@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Prediction Results</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style1.css') }}">
+</head>
+
+<body>
+	<h1>Prediction Results</h1>
+	<div id="gifs">
+		<img src="{{ url_for('static', filename='GIF.gif') }}" alt="Example GIF">
+	</div>
+ 
+	<div id="content">
+		<table>
+			<tr>
+				<th>Attribute</th>
+				<th>Normal Value</th>
+				<th>Value</th>
+			</tr>
+			<tr>
+				<td>Age</td>
+				<td>None</td>
+				<td>{{ age1 }}</td>
+			</tr>
+			<tr>
+				<td>Sex</td>
+				<td>None</td>
+				<td>{{ sex1 }}</td>
+			</tr>
+			<tr>
+				<td>Chest Pain</td>
+				<td>0</td>
+				<td>
+					{% if cp1 == '2' %}
+					({{ cp1 }}) Normal
+					{% elif cp1 == '3' %}
+					({{ cp1 }}) Very High
+					{% else %}
+					({{ cp1 }}) Low
+					{% endif %}
+				</td>
+			</tr>
+			<tr>
+				<td>Resting Blood Pressure</td>
+				<td>120</td>
+				<td>
+					{% if trestbps1|int > 120 %}
+					({{ trestbps1 }}) High
+					{% elif trestbps1|int < 110 %} 
+					({{ trestbps1 }}) Low 
+					{% else %} 
+					({{ trestbps1 }}) Normal {% endif %} </td>
+			</tr>
+			<tr>
+				<td>Cholesterol</td>
+				<td>Less than 200</td>
+				<td>
+					{% if chol1|int > 200 %}
+					({{ chol1}}) High
+					{% elif chol1|int < 190 %}
+					({{ chol1}}) Low
+					 {% else %}
+					 ({{ chol1}}) Normal 
+					  {% endif %} </td>
+			</tr>
+			<tr>
+				<td>Fasting Blood Sugar</td>
+				<td>100-125(0)</td>
+				<td>
+					{% if fbs1|int == '1' %}
+					({{ fbs1}}) High
+					{% else %}
+					({{ fbs1}}) Low
+					 {% endif %}
+				</td>
+			</tr>
+			<tr>
+				<td>Resting ECG</td>
+				<td>0</td>
+				<td>
+					{% if restecg1 == '0' %}
+					({{ restecg1 }}) Normal
+					{% else %}
+					({{ restecg1 }}) Abnormal
+					{% endif %}
+				</td>
+			</tr>
+			<tr>
+				<td>Maximum Heart Rate</td>
+				<td>68-74</td>
+				<td>
+					{% if thalach1|int > 100 %}
+					({{ thalach1}}) High
+					{% elif thalach1|int < 60 %} 
+					({{ thalach1}}) Low
+					 {% else %}
+					 ({{ thalach1}}) Normal
+					   {% endif %} </td>
+			</tr>
+			<tr>
+				<td>Exercise Induced Angina</td>
+				<td>0</td>
+				<td>
+					{% if exang1 == '1' %}
+					({{ exang1 }}) High
+					{% elif exang1 == '3' %}
+					({{ exang1 }}) Normal
+					{% else %}
+					({{ exang1 }}) Medium
+					{% endif %}
+				</td>
+			</tr>
+			<tr>
+				<td>ST Depression</td>
+				<td>0</td>
+				<td>{{ oldpeak1 }}</td>
+			</tr>
+			<tr>
+				<td>ST Segment</td>
+				<td>1</td>
+				<td>{{ slope1 }}</td>
+			</tr>
+			<tr>
+				<td>Number of Major Vessels</td>
+				<td>None</td>
+				<td>{{ ca1 }}</td>
+			</tr>
+			<tr>
+				<td>Thalassemia</td>
+				<td>2</td>
+				<td>
+					{% if thal1 == '3' %}
+					({{ thal1 }}) Reversible Defect
+					{% elif thal1 == '2' %}
+					({{ thal1 }}) Normal
+					{% else %}
+					({{ thal1 }}) Fixed Defect
+					{% endif %}
+				</td>
+			</tr>
+		</table>
+
+
+	{% if results is defined %}
+		{% if results['Heart Disease'] == 'High' %}
+			<h2>The Person have a high risk of heart disease. Please consult a doctor immediately.</h2>
+		{% elif results['Heart Disease'] == 'Medium' %} 
+			<h2> The Person have a risk of heart disease.</h2>
+		{% else %} 
+			<h2>Congratulations! The Person have a low risk of heart disease.</h2>
+		{% endif %}
+	{% endif %}		
+
+		
+	
+	
+	<br><br>
+	
+	<a class="btn" href="/">Back to home page</a>
+			
+</div>	
+</body>
+</html>
+
+
+
